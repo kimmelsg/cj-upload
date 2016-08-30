@@ -1,0 +1,34 @@
+{
+  "name": "react-navload",
+  "version": "0.0.1",
+  "description": "HOC that displays a file upload on clicking children",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src -d ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/navjobs/navload.git"
+  },
+  "keywords": [
+    "jest",
+    "react",
+    "file-upload",
+    "upload"
+  ],
+  "author": "Zach Silveira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/navjobs/navload/issues"
+  },
+  "homepage": "https://github.com/navjobs/navload#readme",
+  "peerDependencies": {
+    "react": "^15.3.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.14.0",
+    "babel-plugin-transform-object-rest-spread": "^6.8.0",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-react": "^6.11.1"
+  }
+}
