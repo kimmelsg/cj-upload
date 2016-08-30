@@ -8,15 +8,15 @@ export default class Upload extends React.Component {
   }
 
   render() {
-    let { children, uploadProps, ...otherProps } = this.props
+    let { children, uploadProps, containerProps } = this.props
     return (
-      <div onClick={() => this.refs.upload.click()} {...otherProps}>
+      <div onClick={() => this.refs.upload.click()} {...containerProps}>
         {children}
-        <input 
+        <input
           ref="upload"
-          type="file" 
+          type="file"
           style={styles.input}
-          onChange={e => this.handleFiles(e)} 
+          onChange={e => this.handleFiles(e)}
           {...uploadProps}
         />
       </div>

@@ -14,9 +14,11 @@ You want to show a file upload prompt when you click on something, but don't wan
 
 ```js
 
-  <Uploader 
+  <Uploader
     onFiles={files => //files object here}
-    className="resume_import"
+    containerProps={{
+      className: 'resume_import'
+    }}
     uploadProps={{
       accept: '.pdf,.doc,.docx,.txt,.rtf',
     }}
