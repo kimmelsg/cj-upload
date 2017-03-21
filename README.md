@@ -7,8 +7,9 @@ The easiest to use file upload wrapper ever made. A HOC that overlays a file inp
 
 ## Todo
 
-Trigger a hover event on the underlying component for better user experience!
+- Trigger a hover event on the underlying component for better user experience!
 
+## Install
 
 ```
 npm install react-navload --save
