@@ -4,7 +4,6 @@ const NavLoad = ({ children, uploadProps, containerProps, onFiles }) => (
   <div style={styles.container} {...containerProps}>
     {children}
     <input
-      ref="upload"
       type="file"
       style={styles.input}
       onChange={e => e.target.files && onFiles ? onFiles(e.target.files) : null}

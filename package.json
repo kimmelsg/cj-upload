@@ -1,6 +1,6 @@
 {
   "name": "react-navload",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "HOC that displays a file upload on clicking children",
   "main": "index.js",
   "scripts": {
