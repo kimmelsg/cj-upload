@@ -1,14 +1,19 @@
-##navload
+## navload
 
-The easiest to use file upload wrapper ever made. A HOC that wraps anything and displays an upload dialog on click.
+The easiest to use file upload wrapper ever made. A HOC that overlays a file input on top of any content.
+
+1. Get around having to style a file upload button
+2. Works in IE and Edge, doesn't trigger a click via js
+
+##Todo
+
+Trigger a hover event on the underlying component for better user experience!
+
 
 ```
 npm install react-navload --save
 ```
 
-###Use case
-
-You want to show a file upload prompt when you click on something, but don't want to add a file input, and trigger a click on it when you click something else.
 
 ###Example
 

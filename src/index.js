@@ -1,31 +1,34 @@
-import React from 'react'
+import React from 'react';
 
-export default class Upload extends React.Component {
+const NavLoad = ({ children, uploadProps, containerProps, onFiles }) => (
+  <div style={styles.container} {...containerProps}>
+    {children}
+    <input
+      ref="upload"
+      type="file"
+      style={styles.input}
+      onChange={e => e.target.files && onFiles ? onFiles(e.target.files) : null}
+      {...uploadProps}
+    />
+  </div>
+);
 
-  handleFiles(e) {
-    let { onFiles } = this.props
-    if(e.target.files && onFiles) onFiles(e.target.files)
-  }
+export default NavLoad;
 
-  render() {
-    let { children, uploadProps, containerProps } = this.props
-    return (
-      <div onClick={() => this.refs.upload.click()} {...containerProps}>
-        {children}
-        <input
-          ref="upload"
-          type="file"
-          style={styles.input}
-          onChange={e => this.handleFiles(e)}
-          {...uploadProps}
-        />
-      </div>
-    )
-  }
-}
-
-const styles = {
+var styles = {
+  container: {
+    overflow: 'hidden',
+    position: 'relative',
+    cursor: 'pointer',
+  },
   input: {
-    display: 'none',
-  }
-}
+    cursor: 'pointer',
+    height: '100%',
+    width: '100%',
+    opacity: 0,
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    zIindex: 99,
+  },
+};
