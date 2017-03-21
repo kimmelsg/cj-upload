@@ -5,7 +5,7 @@ The easiest to use file upload wrapper ever made. A HOC that overlays a file inp
 1. Get around having to style a file upload button
 2. Works in IE and Edge, doesn't trigger a click via js
 
-##Todo
+## Todo
 
 Trigger a hover event on the underlying component for better user experience!
 
@@ -15,7 +15,7 @@ npm install react-navload --save
 ```
 
 
-###Example
+### Example
 
 ```js
 
@@ -34,7 +34,7 @@ npm install react-navload --save
   </Uploader>
 ```
 
-###Doing an upload with fetch
+### Doing an upload with fetch
 
 ```js
 
