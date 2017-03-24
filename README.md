@@ -42,7 +42,7 @@ import { UploadField } from '@navjobs/upload'
 
 ### Uploader
 
-Use `<UploadField />` inside of this component to pass the files to it and handle the upload.
+Use `<UploadField />` inside of this component; pass the files to it and handle the upload!
 
 ```js
 import { Uploader } from '@navjobs/upload'
