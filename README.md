@@ -57,9 +57,9 @@ import { Uploader } from '@navjobs/upload'
     },
   }}
   //upload on file selection, otherwise use `startUpload`
-  uploadOnSelection={uploadOnSelection}
+  uploadOnSelection={true}
 >
-  {({ onFiles, startUpload, progress, complete, canceled, failed }) => (
+  {({ onFiles, progress, complete }) => (
     <div>
       <UploadField onFiles={onFiles}>
         <div>
@@ -68,11 +68,6 @@ import { Uploader } from '@navjobs/upload'
       </UploadField>
       {progress ? `Progress: ${progress}` : null}
       {complete ? 'Complete!' : null}
-      {canceled ? 'Canceled!' : null}
-      {failed ? 'Failed!' : null}
-      {uploadOnSelection
-        ? null
-        : <div onClick={startUpload}>Upload Files</div>}
     </div>
   )}
 </Uploader>
