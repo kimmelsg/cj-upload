@@ -47,3 +47,37 @@ test('Calls onFiles when file is selected', done => {
     .find('input')
     .simulate('change', { target: { files: [{ name: 'fake file' }] } });
 });
+
+test('Doesnt break without onFiles when file is selected', () => {
+  const output = shallow(
+    <UploadField containerProps={{ className: 'test' }}>
+      <div id="test">hi!</div>
+    </UploadField>
+  );
+
+  output
+    .find('input')
+    .simulate('change', { target: { files: [{ name: 'fake file' }] } });
+});
+
+test('Triggers hover', async () => {
+  let hovering;
+
+  const output = mount(
+    <UploadField containerProps={{ className: 'test' }}>
+      {hover => {
+        hovering = hover;
+        return <p>hi!</p>;
+      }}
+    </UploadField>
+  );
+  output.find('div').simulate('mouseenter');
+
+  await sleep(100);
+
+  expect(hovering).toEqual(true);
+
+  output.find('div').simulate('mouseleave');
+
+  expect(hovering).toEqual(false);
+});

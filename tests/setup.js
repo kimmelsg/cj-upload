@@ -19,3 +19,13 @@ Object.keys(document.defaultView).forEach(property => {
 global.navigator = {
   userAgent: 'node.js',
 };
+
+global.sleep = time =>
+  new Promise(resolve => setTimeout(() => resolve(), time));
+
+global.waitFor = (value, equal) => new Promise(resolve => setInterval(
+  () => {
+    if (value === equal) resolve(value);
+  },
+  100
+));
