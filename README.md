@@ -1,6 +1,12 @@
-## navload
+## @navjobs/upload
 
 A set of React components for handling file uploads. If you simply want to turn any component into a file upload dialog, wrap it in our `<UploadField/>` component that exposes the files after selection. Need to process a file upload and receive the upload progress? Wrap `<UploadField/>` with `<Uploader/>`. You can see examples inside [our storybook](/stories/index.js).
+
+
+## Why this?
+
+- Any component can be an upload dialog. Wrap it in `<UploadField/>`. This means you have ultimate styling control.
+- Simple component API for upload progress. Pass headers, extra fields, anything.
 
 ## Install
 
