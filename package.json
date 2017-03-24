@@ -1,14 +1,14 @@
 {
   "name": "@navjobs/upload",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "HOC that displays a file upload on clicking children",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "jest": "jest --config tests/config.json",
     "jest-u": "jest --config tests/config.json -u",
     "test": "storyshots && npm run jest",
     "test-ci": "storyshots && npm run jest && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "build": "babel src -d .",
+    "build": "babel src -d dist",
     "storybook": "start-storybook -p 6006",
     "deploy-storybook": "storybook-to-ghpages",
     "build-storybook": "build-storybook"

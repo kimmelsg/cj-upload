@@ -1,3 +1,6 @@
 src
 .babelrc
 .gitignore
+tests
+stories
+.storybook
