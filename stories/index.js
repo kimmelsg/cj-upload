@@ -55,16 +55,13 @@ uploader.add('Renders', () => {
   return (
     <Uploader
       request={{
-        url: text(
-          'url',
-          'https://api.navjobs.io/account/auth/register/candidate'
-        ),
-        method: 'POST',
+        url: text('url', 'https://google.com'),
+        method: text('Method', 'POST'),
         fields: {
           full_name: 'Testing extra fields',
         },
         headers: {
-          Authorization: 'Bearer: Test',
+          Authorization: text('Authorization Header', 'Bearer: Blah'),
         },
       }}
       uploadOnSelection={uploadOnSelection}
