@@ -16,14 +16,12 @@ exports[`Renders`] = `
     onChange={[Function]}
     style={
       Object {
-        "cursor": "pointer",
         "height": "100%",
         "opacity": 0,
         "position": "absolute",
         "right": 0,
         "top": 0,
         "width": "100%",
-        "zIindex": 99,
       }
     }
     type="file" />
@@ -53,14 +51,12 @@ exports[`Triggers hover on children`] = `
     onChange={[Function]}
     style={
       Object {
-        "cursor": "pointer",
         "height": "100%",
         "opacity": 0,
         "position": "absolute",
         "right": 0,
         "top": 0,
         "width": "100%",
-        "zIindex": 99,
       }
     }
     type="file" />
