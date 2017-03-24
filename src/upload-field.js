@@ -32,14 +32,14 @@ var styles = {
   container: {
     overflow: 'hidden',
     position: 'relative',
-    cursor: 'pointer',
   },
   input: {
-    height: '100%',
-    width: '100%',
-    opacity: 0,
-    position: 'absolute',
     top: 0,
     right: 0,
+    opacity: 0,
+    width: '100%',
+    height: '100%',
+    cursor: 'pointer',
+    position: 'absolute',
   },
 };
