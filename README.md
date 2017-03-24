@@ -60,6 +60,7 @@ import { Uploader } from '@navjobs/upload'
       Authorization: 'Bearer: Test',
     },
   }}
+  onComplete={() => /*do something*/}
   //upload on file selection, otherwise use `startUpload`
   uploadOnSelection={true}
 >
