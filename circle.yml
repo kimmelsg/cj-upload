@@ -3,4 +3,4 @@ machine:
     version: 7.7.4
 test:
   override:
-    - npm run test
+    - npm run test-ci
