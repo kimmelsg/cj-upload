@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/navjobs/upload.svg?style=svg)](https://circleci.com/gh/navjobs/upload)
+
 ## @navjobs/upload
 
 A set of React components for handling file uploads. If you simply want to turn any component into a file upload dialog, wrap it in our `<UploadField/>` component that exposes the files after selection. Need to process a file upload and receive the upload progress? Wrap `<UploadField/>` with `<Uploader/>`. You can see examples inside [our storybook](/stories/index.js).
