@@ -41,18 +41,20 @@ var Uploader = function (_React$Component) {
     value: function handleUpload() {
       var _this2 = this;
 
-      var request = this.props.request;
+      var _props = this.props,
+          request = _props.request,
+          onComplete = _props.onComplete;
 
       if (!this.files) return false;
       var xhr = new XMLHttpRequest();
-
       xhr.upload.addEventListener('progress', function (event) {
         return _this2.setState({
           progress: Math.round(event.loaded / event.total * 100)
         });
       });
       xhr.upload.addEventListener('load', function () {
-        return _this2.setState({
+        if (onComplete) onComplete();
+        _this2.setState({
           progress: null,
           complete: true,
           failed: false,
@@ -99,7 +101,6 @@ var Uploader = function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
-      console.log(this.state);
       var children = this.props.children;
       var _state = this.state,
           progress = _state.progress,

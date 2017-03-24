@@ -35,13 +35,11 @@ var styles = {
     cursor: 'pointer',
   },
   input: {
-    cursor: 'pointer',
     height: '100%',
     width: '100%',
     opacity: 0,
     position: 'absolute',
     top: 0,
     right: 0,
-    zIindex: 99,
   },
 };
