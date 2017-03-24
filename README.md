@@ -20,7 +20,7 @@ yarn add @navjobs/upload
 ```js
 import { UploadField } from '@navjobs/upload'
 
-  <Uploader
+  <UploadField
     onFiles={files => //files object here}
     containerProps={{
       className: 'resume_import'
@@ -33,7 +33,7 @@ import { UploadField } from '@navjobs/upload'
       Click here to upload! This can be an image,
       or any component you can dream of.
     </div>
-  </Uploader>
+  </UploadField>
 ```
 
 ### Uploader
