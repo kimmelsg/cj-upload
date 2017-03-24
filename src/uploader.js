@@ -12,19 +12,21 @@ export default class Uploader extends React.Component {
   }
 
   handleUpload() {
-    let { request } = this.props;
+    let { request, onComplete } = this.props;
     if (!this.files) return false;
     const xhr = new XMLHttpRequest();
-
     xhr.upload.addEventListener('progress', event => this.setState({
       progress: Math.round(event.loaded / event.total * 100),
     }));
-    xhr.upload.addEventListener('load', () => this.setState({
-      progress: null,
-      complete: true,
-      failed: false,
-      canceled: false,
-    }));
+    xhr.upload.addEventListener('load', () => {
+      if (onComplete) onComplete();
+      this.setState({
+        progress: null,
+        complete: true,
+        failed: false,
+        canceled: false,
+      });
+    });
     xhr.upload.addEventListener('error', () => this.setState({
       progress: null,
       failed: true,
@@ -56,7 +58,6 @@ export default class Uploader extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     let { children } = this.props;
     let { progress, canceled, complete, failed } = this.state;
     return children({

@@ -7,6 +7,7 @@ A set of React components for handling file uploads. If you simply want to turn 
 
 - Any component can be an upload dialog. Wrap it in `<UploadField/>`. This means you have ultimate styling control.
 - Simple component API for upload progress. Pass headers, extra fields, anything.
+- Zero dependencies (other than React!)
 
 ## Install
 
