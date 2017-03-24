@@ -1,10 +1,14 @@
 {
-  "name": "react-navload",
-  "version": "0.0.4",
+  "name": "@navjobs/upload",
+  "version": "0.1.0",
   "description": "HOC that displays a file upload on clicking children",
   "main": "index.js",
   "scripts": {
-    "build": "babel src -d ."
+    "test": "storyshots",
+    "build": "babel src -d .",
+    "storybook": "start-storybook -p 6006",
+    "deploy-storybook": "storybook-to-ghpages",
+    "build-storybook": "build-storybook"
   },
   "repository": {
     "type": "git",
@@ -26,9 +30,15 @@
     "react": "^15.3.1"
   },
   "devDependencies": {
+    "@kadira/storybook": "^2.21.0",
+    "@kadira/storybook-addon-knobs": "^1.7.1",
+    "@kadira/storybook-addon-notes": "^1.0.1",
+    "@kadira/storyshots": "^2.1.0",
     "babel-cli": "^6.14.0",
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
     "babel-preset-es2015": "^6.14.0",
-    "babel-preset-react": "^6.11.1"
+    "babel-preset-react": "^6.11.1",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
   }
 }

@@ -1,0 +1,39 @@
+exports[`Welcome`] = `
+<div
+  style={
+    Object {
+      "fontFamily": "\"Helvetica Neue\", Helvetica, \"Segoe UI\", Arial, freesans, sans-serif",
+      "lineHeight": 1.4,
+      "margin": 15,
+      "maxWidth": 600,
+    }
+  }>
+  <h1>
+    @navjobs/upload
+  </h1>
+  <p>
+    This is a set of components for rendering file uploads and getting upload progress in React. All components I\'ve found gave me a headache, because they didn\'t work as intended, or did not let me overwrite styles.
+  </p>
+  <br />
+  <p>
+    Browse the examples on the left, or look inside
+     
+    <code
+      style={
+        Object {
+          "backgroundColor": "#f3f2f2",
+          "border": "1px solid #eae9e9",
+          "borderRadius": 4,
+          "color": "#3a3a3a",
+          "fontSize": 15,
+          "fontWeight": 600,
+          "padding": "2px 5px",
+        }
+      }>
+      /stories/index.js
+    </code>
+     
+    to see component examples.
+  </p>
+</div>
+`;

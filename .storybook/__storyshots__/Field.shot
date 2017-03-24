@@ -1,0 +1,68 @@
+exports[`Renders`] = `
+<div
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  style={
+    Object {
+      "cursor": "pointer",
+      "overflow": "hidden",
+      "position": "relative",
+    }
+  }>
+  <div>
+    Click here and select a file to see files logged.
+  </div>
+  <input
+    onChange={[Function]}
+    style={
+      Object {
+        "cursor": "pointer",
+        "height": "100%",
+        "opacity": 0,
+        "position": "absolute",
+        "right": 0,
+        "top": 0,
+        "width": "100%",
+        "zIindex": 99,
+      }
+    }
+    type="file" />
+</div>
+`;
+
+exports[`Triggers hover on children`] = `
+<div
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  style={
+    Object {
+      "cursor": "pointer",
+      "overflow": "hidden",
+      "position": "relative",
+    }
+  }>
+  <div
+    style={
+      Object {
+        "backgroundColor": "white",
+      }
+    }>
+    Click here and select a file to see files logged.
+  </div>
+  <input
+    onChange={[Function]}
+    style={
+      Object {
+        "cursor": "pointer",
+        "height": "100%",
+        "opacity": 0,
+        "position": "absolute",
+        "right": 0,
+        "top": 0,
+        "width": "100%",
+        "zIindex": 99,
+      }
+    }
+    type="file" />
+</div>
+`;

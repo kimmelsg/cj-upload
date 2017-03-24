@@ -1,24 +1,18 @@
 ## navload
 
-The easiest to use file upload wrapper ever made. A HOC that overlays a file input on top of any content.
-
-1. Get around having to style a file upload button
-2. Works in IE and Edge, doesn't trigger a click via js
-
-## Todo
-
-- Trigger a hover event on the underlying component for better user experience!
+A set of React components for handling file uploads. If you simply want to turn any component into a file upload dialog, wrap it in our `<UploadField/>` component that exposes the files after selection. Need to process a file upload and receive the upload progress? Wrap `<UploadField/>` with `<Uploader/>`. You can see examples inside [our storybook](/stories/index.js).
 
 ## Install
 
 ```
-npm install react-navload --save
+yarn add @navjobs/upload
 ```
 
 
-### Example
+### UploadField
 
 ```js
+import { UploadField } from '@navjobs/upload'
 
   <Uploader
     onFiles={files => //files object here}
@@ -30,24 +24,50 @@ npm install react-navload --save
     }}
   >
     <div>
-      Click here to upload!
+      Click here to upload! This can be an image,
+      or any component you can dream of.
     </div>
   </Uploader>
 ```
 
-### Doing an upload with fetch
+### Uploader
+
+Use `<UploadField />` inside of this component to pass the files to it and handle the upload.
 
 ```js
+import { Uploader } from '@navjobs/upload'
 
-onFile={files => {
-  let formData = new FormData()
-  formData.append('resume', files[0])
-
-  fetch(`https://upload.com`, {
+<Uploader
+  request={{
+    url: 'https://upload.com',
     method: 'POST',
-    body: formData,   
-  })
-  .then(res => console.log('Status', res))
-  .catch(e => console.log('Error',e))
-}}
+    fields: {
+      //extra fields to pass with the request
+      full_name: 'Testing extra fields',
+    },
+    headers: {
+      //custom headers to send along
+      Authorization: 'Bearer: Test',
+    },
+  }}
+  //upload on file selection, otherwise use `startUpload`
+  uploadOnSelection={uploadOnSelection}
+>
+  {({ onFiles, startUpload, progress, complete, canceled, failed }) => (
+    <div>
+      <UploadField onFiles={onFiles}>
+        <div>
+          Click here to select a file!
+        </div>
+      </UploadField>
+      {progress ? `Progress: ${progress}` : null}
+      {complete ? 'Complete!' : null}
+      {canceled ? 'Canceled!' : null}
+      {failed ? 'Failed!' : null}
+      {uploadOnSelection
+        ? null
+        : <div onClick={startUpload}>Upload Files</div>}
+    </div>
+  )}
+</Uploader>
 ```
