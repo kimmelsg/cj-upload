@@ -49,6 +49,7 @@ import { Uploader } from '@navjobs/upload'
 
 <Uploader
   request={{
+    fileName: 'file',
     url: 'https://upload.com',
     method: 'POST',
     fields: {
