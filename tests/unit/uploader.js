@@ -3,7 +3,7 @@ import Uploader from '../../src/uploader';
 
 test('Triggers upload', async () => {
   let progressValue = 0;
-  let wasCompleted = false;
+  let completedValue = false;
 
   const output = mount(
     <Uploader
@@ -12,7 +12,7 @@ test('Triggers upload', async () => {
         method: 'POST',
       }}
       uploadOnSelection={true}
-      onComplete={() => wasCompleted = true}
+      onComplete={response => completedValue = response}
     >
       {({ onFiles, startUpload, progress, complete, canceled, failed }) => {
         if (progress) progressValue = progress;
@@ -40,7 +40,7 @@ test('Triggers upload', async () => {
   await sleep(500);
   expect(progressValue).toEqual(50);
 
-  expect(wasCompleted).toEqual(true);
+  expect(completedValue).toEqual({ finished: 'hell yes' });
 });
 
 test('Triggers upload with headers and extra fields', async () => {

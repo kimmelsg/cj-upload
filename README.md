@@ -77,3 +77,23 @@ import { Uploader } from '@navjobs/upload'
   )}
 </Uploader>
 ```
+
+### Imperative API
+
+If you need to upload files and recieve progress, but can't wrap an `Uploader` around where you receive the files, feel free to use this:
+
+```js
+import xhr from '@navjobs/upload/xhr'
+
+async uploadFiles() {
+  let { response, error, abort } =await xhr({
+    request: {
+      url: 'blah' //same requestas passed into uploader component
+    },
+    files, //files array
+  },
+  progress => console.log('progress!', progress)
+  )
+  if(response) //response from server
+}
+```

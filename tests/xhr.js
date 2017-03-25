@@ -9,6 +9,10 @@ const handler = {
 let callbacks = [];
 let blockSend;
 const mock = values => ({
+  response: JSON.stringify({ finished: 'hell yes' }),
+  addEventListener: (name, callback) => {
+    callbacks.push({ name, callback });
+  },
   upload: {
     addEventListener: (name, callback) => {
       callbacks.push({ name, callback });
@@ -35,7 +39,7 @@ const mock = values => ({
     callbacks = [];
     progress({ loaded: 0.1, total: 1 });
     setTimeout(() => progress({ loaded: 0.5, total: 1 }), 100);
-    setTimeout(() => load(), 200);
+    setTimeout(() => load(JSON.stringify({ finished: 'hell yes' })), 200);
   },
   ...values,
 });
