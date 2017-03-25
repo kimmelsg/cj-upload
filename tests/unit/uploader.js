@@ -256,3 +256,34 @@ test('defaults to a post request', async () => {
     .find('input')
     .simulate('change', { target: { files: [{ name: 'test ' }] } });
 });
+
+test('returns files after selection', async () => {
+  let returnsFiles = false;
+  const output = mount(
+    <Uploader
+      request={{
+        url: 'http://test.dev',
+      }}
+      uploadOnSelection={false}
+    >
+      {({ onFiles, files }) => {
+        if (files) returnsFiles = true;
+        return (
+          <div>
+            <UploadField onFiles={onFiles}>
+              <div>
+                Click here and select a file!
+              </div>
+            </UploadField>
+          </div>
+        );
+      }}
+    </Uploader>
+  );
+
+  output
+    .find('input')
+    .simulate('change', { target: { files: [{ name: 'test ' }] } });
+
+  expect(returnsFiles).toEqual(true);
+});

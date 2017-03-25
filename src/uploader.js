@@ -7,13 +7,14 @@ export default class Uploader extends React.Component {
   }
 
   handleFiles(files) {
-    this.files = files;
-    if (this.props.uploadOnSelection) this.handleUpload();
+    this.setState({ files });
+    if (this.props.uploadOnSelection) this.handleUpload(files);
   }
 
-  handleUpload() {
+  handleUpload(files = this.state.files) {
     let { request, onComplete } = this.props;
-    if (!this.files) return false;
+    if (!files) return;
+
     const xhr = new XMLHttpRequest();
     xhr.upload.addEventListener('progress', event => this.setState({
       progress: Math.round(event.loaded / event.total * 100),
@@ -47,7 +48,7 @@ export default class Uploader extends React.Component {
     }
 
     var formData = new FormData();
-    formData.append(request.fileName || 'file', this.files[0]);
+    formData.append(request.fileName || 'file', files[0]);
 
     if (request.fields) {
       Object.keys(request.fields).forEach(field =>
@@ -59,8 +60,9 @@ export default class Uploader extends React.Component {
 
   render() {
     let { children } = this.props;
-    let { progress, canceled, complete, failed } = this.state;
+    let { progress, canceled, complete, failed, files } = this.state;
     return children({
+      files,
       progress,
       canceled,
       complete,
