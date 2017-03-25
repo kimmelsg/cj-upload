@@ -101,7 +101,7 @@ async uploadFiles() {
 ```
 
 
-##FAQ
+## FAQ
 
 **Q:** Part of the component I'm wrapping isn't cursor pointer?
 
