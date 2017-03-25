@@ -86,14 +86,15 @@ If you need to upload files and recieve progress, but can't wrap an `Uploader` a
 import xhr from '@navjobs/upload/xhr'
 
 async uploadFiles() {
-  let { response, error, abort } =await xhr({
-    request: {
-      url: 'blah' //same requestas passed into uploader component
+  let { response, error, abort } = await xhr(
+    {
+      request: {
+        url: 'blah' //same requestas passed into uploader component
+      },
+      files, //files array
     },
-    files, //files array
-  },
-  progress => console.log('progress!', progress)
+    progress => console.log('progress!', progress)
   )
-  if(response) //response from server
+  //do something with response
 }
 ```
