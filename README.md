@@ -90,7 +90,7 @@ async uploadFiles() {
   let { response, error, abort } = await xhr(
     {
       request: {
-        url: 'blah' //same requestas passed into uploader component
+        url: 'blah' //same as above request object
       },
       files, //files array
     },
