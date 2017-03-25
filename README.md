@@ -99,3 +99,15 @@ async uploadFiles() {
   //do something with response
 }
 ```
+
+
+##FAQ
+
+**Q:** Part of the component I'm wrapping isn't cursor pointer?
+
+**A:** You may need to set
+
+```css
+::-webkit-file-upload-button { cursor:pointer; }
+```
+In your css. For some reason file uploads aren't always pointer.
