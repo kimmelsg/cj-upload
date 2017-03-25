@@ -264,7 +264,7 @@ test('returns files after selection', async () => {
       request={{
         url: 'http://test.dev',
       }}
-      uploadOnSelection={false}
+      uploadOnSelection={true}
     >
       {({ onFiles, files }) => {
         if (files) returnsFiles = true;
@@ -286,4 +286,5 @@ test('returns files after selection', async () => {
     .simulate('change', { target: { files: [{ name: 'test ' }] } });
 
   expect(returnsFiles).toEqual(true);
+  await sleep(500);
 });
