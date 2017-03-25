@@ -53,10 +53,10 @@ test('Triggers upload with headers and extra fields', async () => {
         url: 'http://test.dev',
         method: 'POST',
         headers: {
-          Authorization: 'Bearer',
+          Authorization: 'Fake!!!',
         },
         fields: {
-          test: 'test',
+          test: 'test value',
         },
       }}
       uploadOnSelection={true}
@@ -81,6 +81,8 @@ test('Triggers upload with headers and extra fields', async () => {
 
   await sleep(500);
   expect(progressValue).toEqual(50);
+  expect(headers[0].value).toEqual('Fake!!!');
+  expect(fields.test).toEqual('test value');
 
   expect(wasCompleted).toEqual(true);
 });

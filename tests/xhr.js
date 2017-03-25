@@ -7,6 +7,7 @@ const handler = {
 };
 
 let callbacks = [];
+global.headers = [];
 let blockSend;
 const mock = values => ({
   response: JSON.stringify({ finished: 'hell yes' }),
@@ -18,10 +19,11 @@ const mock = values => ({
       callbacks.push({ name, callback });
     },
   },
-  setRequestHeader: () => true,
+  getHeaders: () => headers,
+  setRequestHeader: (name, value) => headers.push({ name, value }),
   open: (method, url) => {
     blockSend = false;
-
+    headers = [];
     if (url === 'http://fail.dev') {
       callbacks.find(({ name }) => name === 'error').callback(true);
       blockSend = true;
