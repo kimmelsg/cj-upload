@@ -22,21 +22,30 @@ export default class Uploader extends React.Component {
         files,
       },
       progress => this.setState({ progress })
-    ).then(({ response, error, abort }) => {
-      if (error) return this.setState({ failed: true });
+    ).then(({ response, error, abort, status }) => {
+      if (error) return this.setState({ failed: true, response, status });
       if (abort) return this.setState({ canceled: true });
 
-      if (onComplete) onComplete(response);
-      this.setState({ response, complete: true });
+      if (onComplete) onComplete(response, status);
+      this.setState({ response, status, complete: true });
     });
   }
 
   render() {
     let { children } = this.props;
-    let { progress, canceled, complete, failed, files, response } = this.state;
+    let {
+      progress,
+      canceled,
+      complete,
+      failed,
+      files,
+      response,
+      status,
+    } = this.state;
     return children({
       files,
       failed,
+      status,
       progress,
       canceled,
       complete,

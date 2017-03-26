@@ -11,11 +11,11 @@ export default ({ xhr, progress, resolve }) => {
     } catch (e) {
       response = xhr.response;
     }
-    resolve({ response });
+    resolve({ response, error: xhr.status === 500, status: xhr.status });
   });
 
   xhr.addEventListener('error', () => {
-    resolve({ error: true });
+    resolve({ error: true, status: xhr.status });
   });
 
   xhr.addEventListener('abort', () => {

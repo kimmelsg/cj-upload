@@ -4,6 +4,7 @@ import Uploader from '../../src/uploader';
 test('Triggers upload', async () => {
   let progressValue = 0;
   let completedValue = false;
+  let completedStatus = false;
 
   const output = mount(
     <Uploader
@@ -12,7 +13,10 @@ test('Triggers upload', async () => {
         method: 'POST',
       }}
       uploadOnSelection={true}
-      onComplete={response => completedValue = response}
+      onComplete={(response, status) => {
+        completedValue = response;
+        completedStatus = status;
+      }}
     >
       {({ onFiles, startUpload, progress, complete, canceled, failed }) => {
         if (progress) progressValue = progress;
@@ -41,11 +45,13 @@ test('Triggers upload', async () => {
   expect(progressValue).toEqual(50);
 
   expect(completedValue).toEqual({ finished: 'hell yes' });
+  expect(completedStatus).toEqual(200);
 });
 
 test('Triggers upload with headers and extra fields', async () => {
   let progressValue = 0;
   let wasCompleted = false;
+  let statusCode = false;
 
   const output = mount(
     <Uploader
@@ -62,8 +68,11 @@ test('Triggers upload with headers and extra fields', async () => {
       uploadOnSelection={true}
       onComplete={() => wasCompleted = true}
     >
-      {({ onFiles, startUpload, progress, complete, canceled, failed }) => {
+      {(
+        { onFiles, startUpload, progress, complete, canceled, failed, status }
+      ) => {
         if (progress) progressValue = progress;
+        if (status) statusCode = status;
         return (
           <UploadField onFiles={onFiles}>
             <div>
@@ -85,6 +94,7 @@ test('Triggers upload with headers and extra fields', async () => {
   expect(fields.test).toEqual('test value');
 
   expect(wasCompleted).toEqual(true);
+  expect(statusCode).toEqual(200);
 });
 
 test('doesnt upload unless upload button is clicked', async () => {
@@ -175,6 +185,7 @@ test('returns failed on bad request', async () => {
     >
       {({ onFiles, startUpload, progress, complete, canceled, failed }) => {
         if (failed) didFail = true;
+
         return (
           <div>
             <UploadField onFiles={onFiles}>

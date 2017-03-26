@@ -10,6 +10,7 @@ let callbacks = [];
 global.headers = [];
 let blockSend;
 const mock = values => ({
+  status: 200,
   response: JSON.stringify({ finished: 'hell yes' }),
   addEventListener: (name, callback) => {
     callbacks.push({ name, callback });
