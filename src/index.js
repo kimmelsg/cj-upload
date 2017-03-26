@@ -1,4 +1,5 @@
-import UploadField from './upload-field';
 import Uploader from './uploader';
+import UploadRequest from './request';
+import UploadField from './upload-field';
 
-export { UploadField, Uploader };
+export { UploadField, Uploader, UploadRequest };

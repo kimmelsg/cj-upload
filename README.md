@@ -84,10 +84,10 @@ import { Uploader } from '@navjobs/upload'
 If you need to upload files and recieve progress, but can't wrap an `Uploader` around where you receive the files, feel free to use this:
 
 ```js
-import xhr from '@navjobs/upload/xhr'
+import { UploadRequest } from '@navjobs/upload'
 
 async uploadFiles() {
-  let { response, error, abort } = await xhr(
+  let { response, error, abort } = await UploadRequest(
     {
       request: {
         url: 'blah' //same as above request object
