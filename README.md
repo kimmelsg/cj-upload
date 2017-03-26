@@ -111,3 +111,7 @@ async uploadFiles() {
 ::-webkit-file-upload-button { cursor:pointer; }
 ```
 In your css. For some reason file uploads aren't always pointer.
+
+## License
+
+This project is licensed under the terms of the [MIT](/LICENSE.md) license.
