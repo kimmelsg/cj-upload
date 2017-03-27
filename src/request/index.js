@@ -12,7 +12,8 @@ export default ({ request, files }, progress) => new Promise(resolve => {
   }
 
   var formData = new FormData();
-  formData.append(request.fileName || 'file', files[0]);
+  Array.from(files).forEach(file =>
+    formData.append(request.fileName || 'file', file));
 
   if (request.fields) {
     Object.keys(request.fields).forEach(field =>

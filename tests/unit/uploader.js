@@ -91,7 +91,9 @@ test('Triggers upload with headers and extra fields', async () => {
   await sleep(500);
   expect(progressValue).toEqual(50);
   expect(headers[0].value).toEqual('Fake!!!');
-  expect(fields.test).toEqual('test value');
+  expect(fields.find(field => field.name === 'test').value).toEqual(
+    'test value'
+  );
 
   expect(wasCompleted).toEqual(true);
   expect(statusCode).toEqual(200);
@@ -300,4 +302,36 @@ test('returns files after selection', async () => {
 
   expect(returnsFiles).toEqual(true);
   await sleep(500);
+});
+
+test('Handle multiple file upload', async () => {
+  const output = mount(
+    <Uploader
+      request={{
+        url: 'http://test.dev',
+      }}
+      uploadOnSelection={true}
+    >
+      {({ onFiles, startUpload, progress, complete, canceled, failed }) => {
+        return (
+          <div>
+            <UploadField onFiles={onFiles} uploadProps={{ multiple: true }}>
+              <div>
+                Click here and select a file!
+              </div>
+            </UploadField>
+          </div>
+        );
+      }}
+    </Uploader>
+  );
+
+  output.find('input').simulate('change', {
+    target: { files: [{ name: 'test' }, { name: 'second file' }] },
+  });
+
+  await sleep(200);
+
+  expect(fields[0].value.name).toEqual('test');
+  expect(fields[1].value.name).toEqual('second file');
 });

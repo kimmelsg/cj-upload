@@ -23,19 +23,17 @@ global.navigator = {
 global.sleep = time =>
   new Promise(resolve => setTimeout(() => resolve(), time));
 
-global.waitFor = (value, equal) =>
-  new Promise(resolve =>
-    setInterval(
-      () => {
-        if (value === equal) resolve(value);
-      },
-      100
-    ));
+global.waitFor = (value, equal) => new Promise(resolve => setInterval(
+  () => {
+    if (value === equal) resolve(value);
+  },
+  100
+));
 
 global.fields = {};
 global.FormData = () => {
   fields = [];
   return {
-    append: (name, value) => fields[name] = value,
+    append: (name, value) => fields.push({ name, value }),
   };
 };
