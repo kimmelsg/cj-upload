@@ -8,14 +8,17 @@ export default class UploadField extends React.Component {
   render() {
     let { hover } = this.state;
     let { children, uploadProps, containerProps, onFiles } = this.props;
+    let handleHover = typeof children === 'function';
+
     return (
       <div
         style={styles.container}
         {...containerProps}
-        onMouseEnter={() => this.setState({ hover: true })}
-        onMouseLeave={() => this.setState({ hover: false })}
+        onMouseEnter={() => handleHover ? this.setState({ hover: true }) : null}
+        onMouseLeave={() =>
+          handleHover ? this.setState({ hover: false }) : null}
       >
-        {typeof children === 'function' ? children(hover) : children}
+        {handleHover ? children(hover) : children}
         <input
           type="file"
           style={styles.input}

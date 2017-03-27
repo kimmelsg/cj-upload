@@ -72,12 +72,30 @@ test('Triggers hover', async () => {
     </UploadField>
   );
   output.find('div').simulate('mouseenter');
-
-  await sleep(100);
+  await sleep(50);
 
   expect(hovering).toEqual(true);
 
   output.find('div').simulate('mouseleave');
 
   expect(hovering).toEqual(false);
+});
+
+test('Doesnt change state if not callback child', async () => {
+  let hovering;
+
+  const output = mount(
+    <UploadField containerProps={{ className: 'test' }}>
+      <p>hi!</p>
+    </UploadField>
+  );
+  output.find('div').simulate('mouseenter');
+  await sleep(50);
+
+  expect(output.state()).toEqual({});
+
+  output.find('div').simulate('mouseleave');
+  await sleep(50);
+
+  expect(output.state()).toEqual({});
 });
