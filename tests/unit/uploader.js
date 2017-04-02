@@ -331,7 +331,43 @@ test('Handle multiple file upload', async () => {
   });
 
   await sleep(200);
+  expect(aborted).toEqual(false);
+
+  output.unmount();
+  expect(aborted).toEqual(false); //request alreaady completed, should not have aborted
 
   expect(fields[0].value.name).toEqual('test');
   expect(fields[1].value.name).toEqual('second file');
+});
+
+test('Handle unmount mid request', async () => {
+  const output = mount(
+    <Uploader
+      request={{
+        url: 'http://inprogress.dev',
+      }}
+      uploadOnSelection={true}
+    >
+      {({ onFiles, startUpload, progress, complete, canceled, failed }) => {
+        return (
+          <div>
+            <UploadField onFiles={onFiles} uploadProps={{ multiple: true }}>
+              <div>
+                Click here and select a file!
+              </div>
+            </UploadField>
+          </div>
+        );
+      }}
+    </Uploader>
+  );
+
+  output.find('input').simulate('change', {
+    target: { files: [{ name: 'test' }, { name: 'second file' }] },
+  });
+
+  await sleep(50);
+  expect(aborted).toEqual(false);
+  output.unmount();
+  expect(aborted).toEqual(true);
 });

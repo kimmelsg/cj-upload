@@ -12,6 +12,17 @@ export default class Uploader extends React.Component {
     if (this.props.uploadOnSelection) this.handleUpload(files);
   }
 
+  componentWillUnmount() {
+    //abort a request if the component is unmounted mid request
+    if (
+      this.xhr &&
+      this.xhr.readyState &&
+      this.xhr.readyState !== 0 &&
+      this.xhr.readyState !== 4
+    )
+      this.xhr.abort();
+  }
+
   handleUpload(files = this.state.files) {
     let { request, onComplete } = this.props;
     if (!files) return;
@@ -20,6 +31,7 @@ export default class Uploader extends React.Component {
       {
         request,
         files,
+        instance: xhr => this.xhr = xhr,
       },
       progress => this.setState({ progress })
     ).then(({ response, error, abort, status }) => {

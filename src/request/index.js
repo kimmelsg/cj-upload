@@ -1,24 +1,27 @@
 import registerListeners from './register-listeners';
 
-export default ({ request, files }, progress) => new Promise(resolve => {
-  const xhr = new XMLHttpRequest();
-  registerListeners({ xhr, resolve, progress });
+export default ({ request, files, instance }, progress) =>
+  new Promise(resolve => {
+    const xhr = new XMLHttpRequest();
+    instance(xhr);
 
-  xhr.open(request.method || 'POST', request.url);
+    registerListeners({ xhr, resolve, progress });
 
-  if (request.headers) {
-    Object.keys(request.headers).forEach(header =>
-      xhr.setRequestHeader(header, request.headers[header]));
-  }
+    xhr.open(request.method || 'POST', request.url);
 
-  var formData = new FormData();
-  Array.from(files).forEach(file =>
-    formData.append(request.fileName || 'file', file));
+    if (request.headers) {
+      Object.keys(request.headers).forEach(header =>
+        xhr.setRequestHeader(header, request.headers[header]));
+    }
 
-  if (request.fields) {
-    Object.keys(request.fields).forEach(field =>
-      formData.append(field, request.fields[field]));
-  }
+    var formData = new FormData();
+    Array.from(files).forEach(file =>
+      formData.append(request.fileName || 'file', file));
 
-  xhr.send(formData);
-});
+    if (request.fields) {
+      Object.keys(request.fields).forEach(field =>
+        formData.append(field, request.fields[field]));
+    }
+
+    xhr.send(formData);
+  });
