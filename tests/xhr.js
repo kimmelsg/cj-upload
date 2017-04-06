@@ -12,6 +12,8 @@ let callbacks = [];
 global.headers = [];
 let blockSend;
 global.aborted = false;
+global.progress = 1;
+
 const mock = values => ({
   abort: () => aborted = true,
   status: 200,
@@ -29,6 +31,7 @@ const mock = values => ({
   open: (method, url) => {
     blockSend = false;
     aborted = false;
+    progress = 0.1;
     headers = [];
     if (url === 'http://fail.dev') {
       callbacks.find(({ name }) => name === 'error').callback(true);
@@ -42,6 +45,11 @@ const mock = values => ({
       blockSend = true;
       callbacks = [];
       readyState = true;
+    } else if (url === 'http://0progress.dev') {
+      blockSend = true;
+      callbacks = [];
+      progress = 0;
+      readyState = true;
     }
   },
   send: () => {
@@ -49,7 +57,7 @@ const mock = values => ({
     let progress = callbacks.find(({ name }) => name === 'progress').callback;
     let load = callbacks.find(({ name }) => name === 'load').callback;
     callbacks = [];
-    progress({ loaded: 0.1, total: 1 });
+    progress({ loaded: progress, total: 1 });
     setTimeout(() => progress({ loaded: 0.5, total: 1 }), 100);
     setTimeout(() => load(JSON.stringify({ finished: 'hell yes' })), 200);
   },

@@ -9,7 +9,7 @@ export default class Uploader extends React.Component {
 
   handleFiles(files) {
     this.setState({ files });
-    if (this.props.uploadOnSelection) this.handleUpload(files);
+    if (this.props.uploadOnSelection) this.handleUpload({ files });
   }
 
   componentWillUnmount() {
@@ -23,9 +23,11 @@ export default class Uploader extends React.Component {
       this.xhr.abort();
   }
 
-  handleUpload(files = this.state.files) {
+  handleUpload({ data, files = this.state.files }) {
     let { request, onComplete } = this.props;
     if (!files) return;
+
+    if (typeof request === 'function' && data) request = request(data);
 
     Request(
       {
@@ -33,13 +35,19 @@ export default class Uploader extends React.Component {
         files,
         instance: xhr => this.xhr = xhr,
       },
-      progress => this.setState({ progress })
+      progress => this.setState({ progress: progress || 0.1 })
     ).then(({ response, error, abort, status }) => {
       if (error) return this.setState({ failed: true, response, status });
       if (abort) return this.setState({ canceled: true });
-
-      if (onComplete) onComplete(response, status);
-      this.setState({ response, status, complete: true });
+      if (onComplete) {
+        let complete = onComplete({ response, status, request, data });
+        if (complete instanceof Promise) {
+          complete.then(response =>
+            this.setState({ response, status, complete: true }));
+        } else
+          this.setState({ response, status, complete: true });
+      } else
+        this.setState({ response, status, complete: true });
     });
   }
 
@@ -62,8 +70,9 @@ export default class Uploader extends React.Component {
       canceled,
       complete,
       response,
+      triggerProgress: () => this.setState({ progress: 0.1 }),
       onFiles: files => this.handleFiles(files),
-      startUpload: () => this.handleUpload(),
+      startUpload: data => this.handleUpload({ data }),
     });
   }
 }
