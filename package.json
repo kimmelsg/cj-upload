@@ -1,6 +1,6 @@
 {
   "name": "@navjobs/upload",
-  "version": "3.0.0-beta",
+  "version": "3.0.0-beta.2",
   "description": "HOC that displays a file upload on clicking children",
   "main": "dist/index.js",
   "scripts": {
@@ -47,6 +47,7 @@
     "@kadira/storyshots": "^2.1.0",
     "babel-cli": "^6.14.0",
     "babel-jest": "^19.0.0",
+    "babel-plugin-async-to-promises": "^1.0.5",
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
     "babel-preset-es2015": "^6.14.0",
     "babel-preset-react": "^6.11.1",
