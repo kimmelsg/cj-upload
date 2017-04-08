@@ -7,6 +7,11 @@ export default class Uploader extends React.Component {
     this.state = {};
   }
 
+  handleFiles(files) {
+    this.setState({ files });
+    if (this.props.uploadOnSelection) this.handleUpload(files);
+  }
+
   componentWillUnmount() {
     //abort a request if the component is unmounted mid request
     if (
@@ -18,26 +23,29 @@ export default class Uploader extends React.Component {
       this.xhr.abort();
   }
 
-  handleFiles(files) {
-    this.setState({ files });
-    if (this.props.uploadOnSelection) this.handleUpload(files);
-  }
-
-  handleUpload(files = this.state.files) {
-    let { request, onComplete } = this.props;
+  async handleUpload(files = this.state.files) {
+    let { beforeRequest, request, afterRequest, onComplete } = this.props;
     if (!files) return;
 
-    Request({
-      request,
-      files,
-      instance: xhr => this.xhr = xhr,
-      progress: value => this.setState({ progress: value || 0.1 }),
-    }).then(({ response, error, abort, status }) => {
+    this.setState({ progress: 0.1 });
+    try {
+      let before = await beforeRequest({ files });
+
+      let { response, error, abort, status } = await Request({
+        request: request({ before, files }),
+        files,
+        instance: xhr => this.xhr = xhr,
+        progress: value => this.setState({ progress: value || 0.1 }),
+      });
+
       if (error) return this.setState({ failed: true, response, status });
       if (abort) return this.setState({ canceled: true });
-      if (onComplete) onComplete({ response, status });
-      this.setState({ response, status, complete: true });
-    });
+
+      let after = await afterRequest({ before, files, status });
+      this.setState({ response, status, complete: true, before, after });
+    } catch (response) {
+      this.setState({ failed: true, response });
+    }
   }
 
   render() {
@@ -50,11 +58,15 @@ export default class Uploader extends React.Component {
       files,
       response,
       status,
+      before,
+      after,
     } = this.state;
     return children({
       files,
       failed,
       status,
+      before,
+      after,
       progress,
       canceled,
       complete,

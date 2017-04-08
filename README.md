@@ -15,7 +15,7 @@ A set of React components for handling file uploads. If you simply want to turn 
 ## Install
 
 ```
-yarn add @navjobs/upload
+yarn add @navjobs/upload@next
 ```
 
 
@@ -79,6 +79,33 @@ import { Uploader } from '@navjobs/upload'
 </Uploader>
 ```
 
+### Signed Uploader
+
+This is a useful component for generating signed urls on your backend for a service like Google Cloud or AWS.
+
+```js
+import { SignedUploader } from '@navjobs/upload'
+
+
+<SignedUploader
+  beforeRequest={() => new Promise(resolve => resolve({ test: 'awesome' }))}
+  request={({ before }) => {
+    requestGetsBefore = before;
+    return {
+      url: 'http://test.dev',
+      method: 'POST',
+    };
+  }}
+  uploadOnSelection={true}
+  afterRequest={({ before, status }) => new Promise(resolve => {
+    afterRequestGetsBefore = before;
+    completedStatus = status;
+    resolve('finished after');
+  })}
+>
+
+```
+
 ### Imperative API
 
 If you need to upload files and recieve progress, but can't wrap an `Uploader` around where you receive the files, feel free to use this:
@@ -93,8 +120,9 @@ async uploadFiles() {
         url: 'blah' //same as above request object
       },
       files, //files array
-    },
-    progress => console.log('progress!', progress)
+      progress: value => console.log('progress!', value)
+
+    }  
   )
   //do something with response
 }

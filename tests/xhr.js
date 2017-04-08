@@ -58,8 +58,8 @@ const mock = values => ({
     let load = callbacks.find(({ name }) => name === 'load').callback;
     callbacks = [];
     progress({ loaded: progress, total: 1 });
-    setTimeout(() => progress({ loaded: 0.5, total: 1 }), 100);
-    setTimeout(() => load(JSON.stringify({ finished: 'hell yes' })), 200);
+    setTimeout(() => progress({ loaded: 0.5, total: 1 }), 5);
+    setTimeout(() => load(JSON.stringify({ finished: 'hell yes' })), 15);
   },
   ...values,
 });
