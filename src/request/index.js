@@ -13,6 +13,8 @@ export default ({ request, files, instance, progress }) =>
       Object.keys(request.headers).forEach(header =>
         xhr.setRequestHeader(header, request.headers[header]));
     }
+    //send just the file if no fields or filename is set
+    if (!request.fileName && !request.fields) return xhr.send(files[0]);
 
     var formData = new FormData();
     Array.from(files).forEach(file =>
