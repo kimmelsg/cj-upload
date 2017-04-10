@@ -17,7 +17,7 @@ A set of React components for handling file uploads. If you simply want to turn 
 yarn add @navjobs/upload
 ```
 
-### In this library
+## In this library
 
 - [UploadField](#uploadfield) gives access to files after drag and drop / clicking on the area wrapped
 - [Uploader](#uploader) triggers an xhr upload to a url with file progress
