@@ -48,7 +48,7 @@ test('Triggers upload', async () => {
     .find('input')
     .simulate('change', { target: { files: [{ name: 'test ' }] } });
 
-  await sleep(25);
+  await sleep(50);
   expect(progressValue).toEqual(50);
 
   expect(completedValue).toEqual('finished after');
@@ -285,7 +285,7 @@ test('starts upload with startUpload', async () => {
 
   expect(completedValue).toEqual(false);
   output.find('#upload').simulate('click');
-  await sleep(20);
+  await sleep(50);
   output.unmount();
   expect(aborted).toEqual(false);
   expect(completedValue).toEqual(true);
