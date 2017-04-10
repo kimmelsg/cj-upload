@@ -86,7 +86,7 @@ import { Uploader } from '@navjobs/upload'
 
 ### Signed Uploader
 
-This is a useful component for generating signed urls on your backend for a service like Google Cloud or AWS.
+This is a useful component for generating signed urls on your backend for a service like  [AWS](http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-signed-urls.html) or [Google Cloud](https://cloud.google.com/storage/docs/access-control/signed-urls).
 The workflow generally involes hitting your own api, then uploading to the url that your api returns. After the fact, you hit your api again to say that the upload is finished.
 
 ```js
