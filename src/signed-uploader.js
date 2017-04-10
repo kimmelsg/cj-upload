@@ -31,46 +31,26 @@ export default class Uploader extends React.Component {
     try {
       let before = await beforeRequest({ files });
 
-      let { response, error, abort, status } = await Request({
+      let { response, error, aborted, status } = await Request({
         request: request({ before, files }),
         files,
         instance: xhr => this.xhr = xhr,
         progress: value => this.setState({ progress: value || 0.1 }),
       });
-
-      if (error) return this.setState({ failed: true, response, status });
-      if (abort) return this.setState({ canceled: true });
+      if (error) return this.setState({ error, response, status });
+      if (aborted) return this.setState({ aborted });
 
       let after = await afterRequest({ before, files, status });
       this.setState({ response, status, complete: true, before, after });
-    } catch (response) {
-      this.setState({ failed: true, response });
+    } catch (error) {
+      this.setState({ error: error || true });
     }
   }
 
   render() {
     let { children } = this.props;
-    let {
-      progress,
-      canceled,
-      complete,
-      failed,
-      files,
-      response,
-      status,
-      before,
-      after,
-    } = this.state;
     return children({
-      files,
-      failed,
-      status,
-      before,
-      after,
-      progress,
-      canceled,
-      complete,
-      response,
+      ...this.state,
       onFiles: files => this.handleFiles(files),
       startUpload: () => this.handleUpload(),
     });

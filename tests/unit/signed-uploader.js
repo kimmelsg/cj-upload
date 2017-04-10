@@ -48,7 +48,7 @@ test('Triggers upload', async () => {
     .find('input')
     .simulate('change', { target: { files: [{ name: 'test ' }] } });
 
-  await sleep(20);
+  await sleep(50);
   expect(progressValue).toEqual(50);
 
   expect(completedValue).toEqual('finished after');
@@ -57,324 +57,273 @@ test('Triggers upload', async () => {
   expect(completedStatus).toEqual(200);
 });
 
-// test('Triggers upload with headers and extra fields', async () => {
-//   let progressValue = 0;
-//   let wasCompleted = false;
-//   let statusCode = false;
-//
-//   const output = mount(
-//     <Uploader
-//       request={{
-//         url: 'http://test.dev',
-//         method: 'POST',
-//         headers: {
-//           Authorization: 'Fake!!!',
-//         },
-//         fields: {
-//           test: 'test value',
-//         },
-//       }}
-//       uploadOnSelection={true}
-//       onComplete={() => wasCompleted = true}
-//     >
-//       {(
-//         { onFiles, startUpload, progress, complete, canceled, failed, status }
-//       ) => {
-//         if (progress) progressValue = progress;
-//         if (status) statusCode = status;
-//         return (
-//           <UploadField onFiles={onFiles}>
-//             <div>
-//               Click here and select a file!
-//             </div>
-//           </UploadField>
-//         );
-//       }}
-//     </Uploader>
-//   );
-//
-//   output
-//     .find('input')
-//     .simulate('change', { target: { files: [{ name: 'test ' }] } });
-//
-//   await sleep(15);
-//   expect(progressValue).toEqual(50);
-//   expect(headers[0].value).toEqual('Fake!!!');
-//   expect(fields.find(field => field.name === 'test').value).toEqual(
-//     'test value'
-//   );
-//
-//   expect(wasCompleted).toEqual(true);
-//   expect(statusCode).toEqual(200);
-// });
-//
-// test('doesnt upload unless upload button is clicked', async () => {
-//   let progressValue = 0;
-//   let wasCompleted = false;
-//
-//   const output = mount(
-//     <Uploader
-//       request={{
-//         url: 'http://test.dev',
-//         method: 'POST',
-//       }}
-//       uploadOnSelection={false}
-//       onComplete={() => wasCompleted = true}
-//     >
-//       {({ onFiles, startUpload, progress, complete, canceled, failed }) => {
-//         if (progress) progressValue = progress;
-//         return (
-//           <div>
-//             <UploadField onFiles={onFiles}>
-//               <div>
-//                 Click here and select a file!
-//               </div>
-//             </UploadField>
-//             <div id="start" onClick={startUpload} />
-//           </div>
-//         );
-//       }}
-//     </Uploader>
-//   );
-//
-//   output
-//     .find('input')
-//     .simulate('change', { target: { files: [{ name: 'test ' }] } });
-//
-//   expect(progressValue).toEqual(0);
-//
-//   expect(wasCompleted).toEqual(false);
-//
-//   output.find('#start').simulate('click');
-//
-//   await sleep(15);
-//   expect(progressValue).toEqual(50);
-//
-//   expect(wasCompleted).toEqual(true);
-// });
-//
-// test('does nothing if no files are selected', async () => {
-//   const output = mount(
-//     <Uploader
-//       request={{
-//         url: 'http://test.dev',
-//         method: 'POST',
-//       }}
-//       uploadOnSelection={false}
-//       onComplete={() => wasCompleted = true}
-//     >
-//       {({ onFiles, startUpload, progress, complete, canceled, failed }) => {
-//         if (progress) progressValue = progress;
-//         return (
-//           <div>
-//             <UploadField onFiles={onFiles}>
-//               <div>
-//                 Click here and select a file!
-//               </div>
-//             </UploadField>
-//             <div id="start" onClick={startUpload} />
-//           </div>
-//         );
-//       }}
-//     </Uploader>
-//   );
-//
-//   output.find('#start').simulate('click');
-// });
-//
-// test('returns failed on bad request', async () => {
-//   let didFail;
-//
-//   const output = mount(
-//     <Uploader
-//       request={{
-//         url: 'http://fail.dev',
-//         method: 'POST',
-//       }}
-//       uploadOnSelection={true}
-//     >
-//       {({ onFiles, startUpload, progress, complete, canceled, failed }) => {
-//         if (failed) didFail = true;
-//
-//         return (
-//           <div>
-//             <UploadField onFiles={onFiles}>
-//               <div>
-//                 Click here and select a file!
-//               </div>
-//             </UploadField>
-//           </div>
-//         );
-//       }}
-//     </Uploader>
-//   );
-//
-//   output
-//     .find('input')
-//     .simulate('change', { target: { files: [{ name: 'test ' }] } });
-//
-//   await sleep(15);
-//
-//   expect(didFail).toEqual(true);
-// });
-//
-// test('returns canceled on aborted request', async () => {
-//   let didAbort;
-//
-//   const output = mount(
-//     <Uploader
-//       request={{
-//         url: 'http://abort.dev',
-//         method: 'POST',
-//       }}
-//       uploadOnSelection={true}
-//     >
-//       {({ onFiles, startUpload, progress, complete, canceled, failed }) => {
-//         if (canceled) didAbort = true;
-//         return (
-//           <div>
-//             <UploadField onFiles={onFiles}>
-//               <div>
-//                 Click here and select a file!
-//               </div>
-//             </UploadField>
-//           </div>
-//         );
-//       }}
-//     </Uploader>
-//   );
-//
-//   output
-//     .find('input')
-//     .simulate('change', { target: { files: [{ name: 'test ' }] } });
-//
-//   await sleep(15);
-//
-//   expect(didAbort).toEqual(true);
-// });
-//
-// test('defaults to a post request', async () => {
-//   const output = mount(
-//     <Uploader
-//       request={{
-//         url: 'http://test.dev',
-//       }}
-//       uploadOnSelection={true}
-//     >
-//       {({ onFiles, startUpload, progress, complete, canceled, failed }) => {
-//         return (
-//           <div>
-//             <UploadField onFiles={onFiles}>
-//               <div>
-//                 Click here and select a file!
-//               </div>
-//             </UploadField>
-//           </div>
-//         );
-//       }}
-//     </Uploader>
-//   );
-//
-//   output
-//     .find('input')
-//     .simulate('change', { target: { files: [{ name: 'test ' }] } });
-// });
-//
-// test('returns files after selection', async () => {
-//   let returnsFiles = false;
-//   const output = mount(
-//     <Uploader
-//       request={{
-//         url: 'http://test.dev',
-//       }}
-//       uploadOnSelection={true}
-//     >
-//       {({ onFiles, files }) => {
-//         if (files) returnsFiles = true;
-//         return (
-//           <div>
-//             <UploadField onFiles={onFiles}>
-//               <div>
-//                 Click here and select a file!
-//               </div>
-//             </UploadField>
-//           </div>
-//         );
-//       }}
-//     </Uploader>
-//   );
-//
-//   output
-//     .find('input')
-//     .simulate('change', { target: { files: [{ name: 'test ' }] } });
-//
-//   expect(returnsFiles).toEqual(true);
-//   await sleep(15);
-// });
-//
-// test('Handle multiple file upload', async () => {
-//   const output = mount(
-//     <Uploader
-//       request={{
-//         url: 'http://test.dev',
-//       }}
-//       uploadOnSelection={true}
-//     >
-//       {({ onFiles, startUpload, progress, complete, canceled, failed }) => {
-//         return (
-//           <div>
-//             <UploadField onFiles={onFiles} uploadProps={{ multiple: true }}>
-//               <div>
-//                 Click here and select a file!
-//               </div>
-//             </UploadField>
-//           </div>
-//         );
-//       }}
-//     </Uploader>
-//   );
-//
-//   output.find('input').simulate('change', {
-//     target: { files: [{ name: 'test' }, { name: 'second file' }] },
-//   });
-//
-//   await sleep(15);
-//   expect(aborted).toEqual(false);
-//
-//   output.unmount();
-//   expect(aborted).toEqual(false); //request alreaady completed, should not have aborted
-//   expect(fields[0].value.name).toEqual('test');
-//   expect(fields[1].value.name).toEqual('second file');
-// });
-//
-// test('Handle unmount mid request', async () => {
-//   const output = mount(
-//     <Uploader
-//       request={{
-//         url: 'http://inprogress.dev',
-//       }}
-//       uploadOnSelection={true}
-//     >
-//       {({ onFiles, startUpload, progress, complete, canceled, failed }) => {
-//         return (
-//           <div>
-//             <UploadField onFiles={onFiles} uploadProps={{ multiple: true }}>
-//               <div>
-//                 Click here and select a file!
-//               </div>
-//             </UploadField>
-//           </div>
-//         );
-//       }}
-//     </Uploader>
-//   );
-//
-//   output.find('input').simulate('change', {
-//     target: { files: [{ name: 'test' }, { name: 'second file' }] },
-//   });
-//
-//   await sleep(15);
-//   expect(aborted).toEqual(false);
-//   output.unmount();
-//   expect(aborted).toEqual(true);
-// });
+test('Triggers error', async () => {
+  let completedValue = false;
+
+  const output = mount(
+    <Uploader
+      beforeRequest={() => new Promise(resolve => resolve({ test: 'awesome' }))}
+      request={({ before }) => {
+        return {
+          url: 'http://fail.dev',
+          method: 'POST',
+        };
+      }}
+      uploadOnSelection={true}
+      afterRequest={({ before, status }) =>
+        new Promise(resolve => {
+          resolve('finished after');
+        })}
+    >
+      {({ onFiles, progress, complete, after, before, error }) => {
+        if (error) completedValue = error;
+        return (
+          <div>
+            <UploadField onFiles={onFiles}>
+              <div>
+                Click here and select a file!
+              </div>
+            </UploadField>
+            {progress ? `Progress: ${progress}` : null}
+            {complete ? 'Complete!' : null}
+          </div>
+        );
+      }}
+    </Uploader>
+  );
+
+  expect(completedValue).toEqual(false);
+  output
+    .find('input')
+    .simulate('change', { target: { files: [{ name: 'test ' }] } });
+
+  await sleep(20);
+
+  expect(completedValue).toEqual(true);
+});
+
+test('Triggers abort', async () => {
+  let completedValue = false;
+
+  const output = mount(
+    <Uploader
+      beforeRequest={() => new Promise(resolve => resolve({ test: 'awesome' }))}
+      request={({ before }) => {
+        return {
+          url: 'http://abort.dev',
+          method: 'POST',
+        };
+      }}
+      uploadOnSelection={true}
+      afterRequest={({ before, status }) =>
+        new Promise(resolve => {
+          resolve('finished after');
+        })}
+    >
+      {({ onFiles, progress, complete, after, before, aborted }) => {
+        if (aborted) completedValue = aborted;
+        return (
+          <div>
+            <UploadField onFiles={onFiles}>
+              <div>
+                Click here and select a file!
+              </div>
+            </UploadField>
+            {progress ? `Progress: ${progress}` : null}
+            {complete ? 'Complete!' : null}
+          </div>
+        );
+      }}
+    </Uploader>
+  );
+
+  expect(completedValue).toEqual(false);
+  output
+    .find('input')
+    .simulate('change', { target: { files: [{ name: 'test ' }] } });
+
+  await sleep(20);
+
+  expect(completedValue).toEqual(true);
+});
+
+test('Triggers error before request', async () => {
+  let completedValue = false;
+
+  const output = mount(
+    <Uploader
+      beforeRequest={() =>
+        new Promise((resolve, reject) => reject({ error: 'awesome' }))}
+      request={({ before }) => {
+        return {
+          url: 'http://inprogress.dev',
+          method: 'POST',
+        };
+      }}
+      uploadOnSelection={true}
+      afterRequest={({ before, status }) =>
+        new Promise(resolve => {
+          resolve('finished after');
+        })}
+    >
+      {({ onFiles, progress, complete, after, before, error }) => {
+        if (error) completedValue = error;
+        return (
+          <div>
+            <UploadField onFiles={onFiles}>
+              <div>
+                Click here and select a file!
+              </div>
+            </UploadField>
+            {progress ? `Progress: ${progress}` : null}
+            {complete ? 'Complete!' : null}
+          </div>
+        );
+      }}
+    </Uploader>
+  );
+
+  expect(completedValue).toEqual(false);
+  output
+    .find('input')
+    .simulate('change', { target: { files: [{ name: 'test ' }] } });
+
+  await sleep(20);
+
+  expect(completedValue).toEqual({ error: 'awesome' });
+});
+
+test('Triggers empty error before request', async () => {
+  let completedValue = false;
+
+  const output = mount(
+    <Uploader
+      beforeRequest={() => new Promise((resolve, reject) => reject())}
+      request={({ before }) => {
+        return {
+          url: 'http://inprogress.dev',
+          method: 'POST',
+        };
+      }}
+      uploadOnSelection={true}
+      afterRequest={({ before, status }) =>
+        new Promise(resolve => {
+          resolve('finished after');
+        })}
+    >
+      {({ onFiles, progress, complete, after, before, error }) => {
+        if (error) completedValue = error;
+        return (
+          <div>
+            <UploadField onFiles={onFiles}>
+              <div>
+                Click here and select a file!
+              </div>
+            </UploadField>
+            {progress ? `Progress: ${progress}` : null}
+            {complete ? 'Complete!' : null}
+          </div>
+        );
+      }}
+    </Uploader>
+  );
+
+  expect(completedValue).toEqual(false);
+  output
+    .find('input')
+    .simulate('change', { target: { files: [{ name: 'test ' }] } });
+
+  await sleep(20);
+
+  expect(completedValue).toEqual(true);
+});
+
+test('starts upload with startUpload', async () => {
+  let completedValue = false;
+
+  const output = mount(
+    <Uploader
+      beforeRequest={() => new Promise(resolve => resolve({ test: 'awesome' }))}
+      request={({ before }) => {
+        return {
+          url: 'http://test.dev',
+          method: 'POST',
+        };
+      }}
+      afterRequest={({ before, status }) =>
+        new Promise(resolve => {
+          resolve('finished after');
+        })}
+    >
+      {({ onFiles, progress, complete, startUpload }) => {
+        if (complete) completedValue = complete;
+        return (
+          <div>
+            <UploadField onFiles={onFiles}>
+              <div>
+                Click here and select a file!
+              </div>
+            </UploadField>
+            {progress ? `Progress: ${progress}` : null}
+            {complete ? 'Complete!' : null}
+            <div id="upload" onClick={startUpload} />
+          </div>
+        );
+      }}
+    </Uploader>
+  );
+
+  output.find('#upload').simulate('click');
+  await sleep(20);
+  expect(completedValue).toEqual(false);
+
+  output
+    .find('input')
+    .simulate('change', { target: { files: [{ name: 'test ' }] } });
+
+  await sleep(20);
+
+  expect(completedValue).toEqual(false);
+  output.find('#upload').simulate('click');
+  await sleep(50);
+  output.unmount();
+  expect(aborted).toEqual(false);
+  expect(completedValue).toEqual(true);
+});
+
+test('Handle unmount mid request', async () => {
+  const output = mount(
+    <Uploader
+      beforeRequest={() => new Promise(resolve => resolve({ test: 'awesome' }))}
+      request={() => ({
+        url: 'http://inprogress.dev',
+      })}
+      afterRequest={({ before, status }) =>
+        new Promise(resolve => {
+          resolve('finished after');
+        })}
+      uploadOnSelection={true}
+    >
+      {({ onFiles, startUpload, progress, complete, canceled, error }) => {
+        return (
+          <div>
+            <UploadField onFiles={onFiles} uploadProps={{ multiple: true }}>
+              <div>
+                Click here and select a file!
+              </div>
+            </UploadField>
+          </div>
+        );
+      }}
+    </Uploader>
+  );
+
+  output.find('input').simulate('change', {
+    target: { files: [{ name: 'test' }, { name: 'second file' }] },
+  });
+
+  await sleep(20);
+  expect(aborted).toEqual(false);
+  output.unmount();
+  expect(aborted).toEqual(true);
+});
