@@ -21,8 +21,8 @@ yarn add @navjobs/upload
 
 - [UploadField](#uploadfield) gives access to files after drag and drop / clicking on the area wrapped
 - [Uploader](#uploader) triggers an xhr upload to a url with file progress
-- [SignedUploader](#signeduploader) same as above, but helps generate a [signed url](https://cloud.google.com/storage/docs/access-control/signed-urls) from your api.
-- [Imperative api](#imperativeapi) that lets you trigger a file upload with progress outside of react.
+- [SignedUploader](#signed-uploader) same as above, but helps generate a [signed url](https://cloud.google.com/storage/docs/access-control/signed-urls) from your api.
+- [Imperative api](#imperative-api) that lets you trigger a file upload with progress outside of react.
 
 ### UploadField
 
