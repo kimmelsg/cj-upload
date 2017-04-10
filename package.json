@@ -37,7 +37,7 @@
   },
   "homepage": "https://github.com/navjobs/navload#readme",
   "peerDependencies": {
-    "react": "^15.3.1"
+    "react": "^15.0.0 || ^16.0.0"
   },
   "devDependencies": {
     "@kadira/storybook": "^2.21.0",
@@ -58,8 +58,9 @@
     "jsdom": "^9.12.0",
     "lint-staged": "^3.4.0",
     "prettier": "^0.22.0",
-    "react": "^15.4.2",
-    "react-addons-test-utils": "^15.4.2",
-    "react-dom": "^15.4.2"
-  }
+    "react": "15.5.0",
+    "react-dom": "15.5.0",
+    "react-test-renderer": "15.5.4"
+  },
+  "dependencies": {}
 }
