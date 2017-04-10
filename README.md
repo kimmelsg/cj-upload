@@ -5,7 +5,6 @@
 
 A set of React components for handling file uploads. If you simply want to turn any component into a file upload dialog, wrap it in our `<UploadField/>` component that exposes the files after selection. Need to process a file upload and receive the upload progress? Wrap `<UploadField/>` with `<Uploader/>`. You can see examples inside [our storybook](/stories/index.js).
 
-
 ## Why this?
 
 - Any component can be an upload dialog. Wrap it in `<UploadField/>`. This means you have ultimate styling control.
@@ -15,9 +14,15 @@ A set of React components for handling file uploads. If you simply want to turn 
 ## Install
 
 ```
-yarn add @navjobs/upload@next
+yarn add @navjobs/upload
 ```
 
+### In this library
+
+- [UploadField](#UploadField) gives access to files after drag and drop / clicking on the area wrapped
+- [Uploader](#Uploader) triggers an xhr upload to a url with file progress
+- [SignedUploader](#Signed Uploader) same as above, but helps generate a [signed url](https://cloud.google.com/storage/docs/access-control/signed-urls) from your api.
+- [Imperative api](#Imperative-API) that lets you trigger a file upload with progress outside of react.
 
 ### UploadField
 
