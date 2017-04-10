@@ -307,6 +307,7 @@ test('Handle multiple file upload', async () => {
   const output = mount(
     <Uploader
       request={{
+        fileName: 'file',
         url: 'http://test.dev',
       }}
       uploadOnSelection={true}
@@ -329,7 +330,7 @@ test('Handle multiple file upload', async () => {
     target: { files: [{ name: 'test' }, { name: 'second file' }] },
   });
 
-  await sleep(15);
+  await sleep(20);
   expect(aborted).toEqual(false);
 
   output.unmount();
