@@ -1,6 +1,6 @@
 export default ({ xhr, progress, resolve }) => {
   xhr.upload.addEventListener('progress', event => {
-    if (!progress) return;
+    if (!progress) return false;
     progress(Math.round(event.loaded / event.total * 100));
   });
 
@@ -14,11 +14,11 @@ export default ({ xhr, progress, resolve }) => {
     resolve({ response, error: xhr.status === 500, status: xhr.status });
   });
 
-  xhr.addEventListener('error', () => {
-    resolve({ error: true, status: xhr.status });
+  xhr.addEventListener('error', error => {
+    resolve({ error, status: xhr.status });
   });
 
-  xhr.addEventListener('abort', () => {
-    resolve({ abort: true });
+  xhr.addEventListener('abort', aborted => {
+    resolve({ aborted });
   });
 };
