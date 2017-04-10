@@ -32,9 +32,9 @@ export default class Uploader extends React.Component {
       files,
       instance: xhr => this.xhr = xhr,
       progress: value => this.setState({ progress: value || 0.1 }),
-    }).then(({ response, error, abort, status }) => {
-      if (error) return this.setState({ failed: true, response, status });
-      if (abort) return this.setState({ canceled: true });
+    }).then(({ response, error, aborted, status }) => {
+      if (error) return this.setState({ error, response, status });
+      if (aborted) return this.setState({ aborted });
       if (onComplete) onComplete({ response, status });
       this.setState({ response, status, complete: true });
     });
@@ -42,23 +42,9 @@ export default class Uploader extends React.Component {
 
   render() {
     let { children } = this.props;
-    let {
-      progress,
-      canceled,
-      complete,
-      failed,
-      files,
-      response,
-      status,
-    } = this.state;
+
     return children({
-      files,
-      failed,
-      status,
-      progress,
-      canceled,
-      complete,
-      response,
+      ...this.state,
       onFiles: files => this.handleFiles(files),
       startUpload: () => this.handleUpload(),
     });

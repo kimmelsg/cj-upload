@@ -18,7 +18,7 @@ test('Triggers upload', async () => {
         completedStatus = status;
       }}
     >
-      {({ onFiles, startUpload, progress, complete, canceled, failed }) => {
+      {({ onFiles, startUpload, progress, complete, canceled, error }) => {
         if (progress) progressValue = progress;
         return (
           <div>
@@ -30,7 +30,7 @@ test('Triggers upload', async () => {
             {progress ? `Progress: ${progress}` : null}
             {complete ? 'Complete!' : null}
             {canceled ? 'Canceled!' : null}
-            {failed ? 'Failed!' : null}
+            {error ? 'Failed!' : null}
           </div>
         );
       }}
@@ -69,7 +69,7 @@ test('Triggers upload with headers and extra fields', async () => {
       onComplete={() => wasCompleted = true}
     >
       {(
-        { onFiles, startUpload, progress, complete, canceled, failed, status }
+        { onFiles, startUpload, progress, complete, canceled, error, status }
       ) => {
         if (progress) progressValue = progress;
         if (status) statusCode = status;
@@ -112,7 +112,7 @@ test('doesnt upload unless upload button is clicked', async () => {
       uploadOnSelection={false}
       onComplete={() => wasCompleted = true}
     >
-      {({ onFiles, startUpload, progress, complete, canceled, failed }) => {
+      {({ onFiles, startUpload, progress, complete, canceled, error }) => {
         if (progress) progressValue = progress;
         return (
           <div>
@@ -154,7 +154,7 @@ test('does nothing if no files are selected', async () => {
       uploadOnSelection={false}
       onComplete={() => wasCompleted = true}
     >
-      {({ onFiles, startUpload, progress, complete, canceled, failed }) => {
+      {({ onFiles, startUpload, progress, complete, canceled, error }) => {
         if (progress) progressValue = progress;
         return (
           <div>
@@ -173,7 +173,7 @@ test('does nothing if no files are selected', async () => {
   output.find('#start').simulate('click');
 });
 
-test('returns failed on bad request', async () => {
+test('returns error on bad request', async () => {
   let didFail;
 
   const output = mount(
@@ -184,8 +184,8 @@ test('returns failed on bad request', async () => {
       }}
       uploadOnSelection={true}
     >
-      {({ onFiles, startUpload, progress, complete, canceled, failed }) => {
-        if (failed) didFail = true;
+      {({ onFiles, startUpload, progress, complete, canceled, error }) => {
+        if (error) didFail = true;
 
         return (
           <div>
@@ -209,7 +209,7 @@ test('returns failed on bad request', async () => {
   expect(didFail).toEqual(true);
 });
 
-test('returns canceled on aborted request', async () => {
+test('returns aborted on aborted request', async () => {
   let didAbort;
 
   const output = mount(
@@ -220,8 +220,8 @@ test('returns canceled on aborted request', async () => {
       }}
       uploadOnSelection={true}
     >
-      {({ onFiles, startUpload, progress, complete, canceled, failed }) => {
-        if (canceled) didAbort = true;
+      {({ onFiles, startUpload, progress, complete, aborted, error }) => {
+        if (aborted) didAbort = true;
         return (
           <div>
             <UploadField onFiles={onFiles}>
@@ -252,7 +252,7 @@ test('defaults to a post request', async () => {
       }}
       uploadOnSelection={true}
     >
-      {({ onFiles, startUpload, progress, complete, canceled, failed }) => {
+      {({ onFiles, startUpload, progress, complete, canceled, error }) => {
         return (
           <div>
             <UploadField onFiles={onFiles}>
@@ -312,7 +312,7 @@ test('Handle multiple file upload', async () => {
       }}
       uploadOnSelection={true}
     >
-      {({ onFiles, startUpload, progress, complete, canceled, failed }) => {
+      {({ onFiles, startUpload, progress, complete, canceled, error }) => {
         return (
           <div>
             <UploadField onFiles={onFiles} uploadProps={{ multiple: true }}>
@@ -347,7 +347,7 @@ test('Handle unmount mid request', async () => {
       }}
       uploadOnSelection={true}
     >
-      {({ onFiles, startUpload, progress, complete, canceled, failed }) => {
+      {({ onFiles, startUpload, progress, complete, canceled, error }) => {
         return (
           <div>
             <UploadField onFiles={onFiles} uploadProps={{ multiple: true }}>
@@ -365,7 +365,7 @@ test('Handle unmount mid request', async () => {
     target: { files: [{ name: 'test' }, { name: 'second file' }] },
   });
 
-  await sleep(15);
+  await sleep(20);
   expect(aborted).toEqual(false);
   output.unmount();
   expect(aborted).toEqual(true);
