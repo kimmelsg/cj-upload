@@ -65,6 +65,8 @@ import { Uploader } from '@navjobs/upload'
       //custom headers to send along
       Authorization: 'Bearer: Test',
     },
+    // use credentials for cross-site requests
+    withCredentials: false,
   }}
   onComplete={({ response, status }) => /*do something*/}
   //upload on file selection, otherwise use `startUpload`
