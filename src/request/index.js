@@ -8,6 +8,7 @@ export default ({ request, files, instance, progress }) =>
     registerListeners({ xhr, resolve, progress });
 
     xhr.open(request.method || 'POST', request.url);
+    xhr.withCredentials = request.withCredentials || false;
 
     if (request.headers) {
       Object.keys(request.headers).forEach(header =>
