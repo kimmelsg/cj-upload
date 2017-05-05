@@ -24,13 +24,18 @@ export default class Uploader extends React.Component {
   }
 
   handleUpload(files = this.state.files) {
+    let { progress } = this.state;
     let { request, onComplete } = this.props;
     if (!files || !files.length) return;
-    
-    this.setState({
-      complete: null,
-      progress: 0.1
-    });
+
+    if (progress) {
+      this.setState({
+        progress: 0.1,
+        error: false,
+        aborted: false,
+        complete: false,
+      });
+    }
 
     Request({
       request,
