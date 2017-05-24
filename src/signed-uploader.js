@@ -44,7 +44,7 @@ export default class Uploader extends React.Component {
         instance: xhr => this.xhr = xhr,
         progress: value => this.setState({ progress: value || 0.1 }),
       });
-      if (error) return this.setState({ error, response, status });
+      if (error) return this.setState({ error, response, status, before });
       if (aborted) return this.setState({ aborted });
 
       let after = await afterRequest({ before, files, status });
