@@ -13,7 +13,7 @@ export default ({ xhr, progress, resolve }) => {
     }
     resolve({
       response,
-      error: xhr.status !== 200 || xhr.status !== 201,
+      error: xhr.status !== 200 && xhr.status !== 201,
       status: xhr.status,
     });
   });
