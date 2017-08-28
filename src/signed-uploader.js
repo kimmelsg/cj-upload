@@ -49,6 +49,7 @@ export default class Uploader extends React.Component {
 
       let after = await afterRequest({ before, files, status });
       this.setState({ response, status, complete: true, before, after });
+      if (onComplete) onComplete({ response, status });
     } catch (error) {
       this.setState({ error: error || true });
     }
