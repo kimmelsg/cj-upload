@@ -8,6 +8,8 @@ test('Triggers upload', async () => {
   let requestGetsBefore = false;
   let afterRequestGetsBefore = false;
 
+  let onComplete = jest.fn();
+
   const output = mount(
     <Uploader
       beforeRequest={() => new Promise(resolve => resolve({ test: 'awesome' }))}
@@ -19,6 +21,7 @@ test('Triggers upload', async () => {
         };
       }}
       uploadOnSelection={true}
+      onComplete={onComplete}
       afterRequest={({ before, status }) =>
         new Promise(resolve => {
           afterRequestGetsBefore = before;
@@ -51,6 +54,7 @@ test('Triggers upload', async () => {
   await sleep(50);
   expect(progressValue).toEqual(50);
 
+  expect(onComplete).toHaveBeenCalledTimes(1);
   expect(completedValue).toEqual('finished after');
   expect(afterRequestGetsBefore).toEqual({ test: 'awesome' });
   expect(requestGetsBefore).toEqual({ test: 'awesome' });
