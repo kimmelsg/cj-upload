@@ -18,13 +18,15 @@ export default ({ request, files, instance, progress }) =>
     if (!request.fileName && !request.fields) return xhr.send(files[0]);
 
     var formData = new FormData();
-    Array.from(files).forEach(file =>
-      formData.append(request.fileName || 'file', file));
 
+    //append fields first, fixes https://github.com/expressjs/multer/issues/322
     if (request.fields) {
       Object.keys(request.fields).forEach(field =>
         formData.append(field, request.fields[field]));
     }
+
+    Array.from(files).forEach(file =>
+      formData.append(request.fileName || 'file', file));
 
     xhr.send(formData);
   });
