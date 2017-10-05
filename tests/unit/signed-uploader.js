@@ -331,3 +331,46 @@ test('Handle unmount mid request', async () => {
   output.unmount();
   expect(aborted).toEqual(true);
 });
+
+test('Immediately reset state after complete', async () => {
+  const output = mount(
+    <Uploader
+      beforeRequest={() => new Promise(resolve => resolve({ test: 'awesome' }))}
+      afterRequest={({ before, status }) =>
+        new Promise(resolve => {
+          resolve('finished after');
+        })}
+      request={({ before }) => {
+        return {
+          url: 'http://test.dev',
+          method: 'POST',
+        };
+      }}
+      uploadOnSelection
+      reset
+    >
+      {({ onFiles, files }) => {
+        return (
+          <div>
+            <UploadField onFiles={onFiles}>
+              <div>
+                Click here and select a file!
+              </div>
+            </UploadField>
+          </div>
+        );
+      }}
+    </Uploader>
+  );
+
+  output.setState({ progress: 0.1, complete: true });
+  expect(output.state()).toEqual({ progress: 0.1, complete: true });
+
+  output.find('input').simulate('change', {
+    target: { files: [{ name: 'test' }, { name: 'second file' }] },
+  });
+  await sleep(20);
+
+  expect(output.state().progress).toEqual(0);
+  expect(output.state().complete).toEqual(false);
+});

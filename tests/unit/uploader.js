@@ -404,3 +404,38 @@ test('Handle second request', async () => {
   expect(output.state().progress).toEqual(0.1);
   expect(output.state().complete).toEqual(false);
 });
+
+test('Immediately reset state after complete', async () => {
+  const output = mount(
+    <Uploader
+      request={{
+        url: 'http://test.dev',
+      }}
+      uploadOnSelection
+      reset
+    >
+      {({ onFiles, files }) => {
+        return (
+          <div>
+            <UploadField onFiles={onFiles}>
+              <div>
+                Click here and select a file!
+              </div>
+            </UploadField>
+          </div>
+        );
+      }}
+    </Uploader>
+  );
+
+  output.setState({ progress: 0.1, complete: true });
+  expect(output.state()).toEqual({ progress: 0.1, complete: true });
+
+  output.find('input').simulate('change', {
+    target: { files: [{ name: 'test' }, { name: 'second file' }] },
+  });
+  await sleep(20);
+
+  expect(output.state().progress).toEqual(0);
+  expect(output.state().complete).toEqual(false);
+});
