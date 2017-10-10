@@ -7,6 +7,7 @@
 
 I'm working on a v4 soon that simplfies the api and removes the children-as-a-function paradigm to something more extendable. Also revamping the test suit. It'll be a complete rewrite.
 
+## What
 A set of React components for handling file uploads. If you simply want to turn any component into a file upload dialog, wrap it in our `<UploadField/>` component that exposes the files after selection. Need to process a file upload and receive the upload progress? Wrap `<UploadField/>` with `<Uploader/>`. You can see examples inside [our storybook](/stories/index.js).
 
 ## Why this?
