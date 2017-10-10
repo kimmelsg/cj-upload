@@ -25,7 +25,7 @@ export default class Uploader extends React.Component {
 
   handleUpload(files = this.state.files) {
     let { progress } = this.state;
-    let { request, onComplete, reset } = this.props;
+    let { request, onComplete, onError, reset } = this.props;
     if (!files || !files.length) return;
 
     if (progress) {
@@ -43,7 +43,12 @@ export default class Uploader extends React.Component {
       instance: xhr => this.xhr = xhr,
       progress: value => this.setState({ progress: value || 0.1 }),
     }).then(({ response, error, aborted, status }) => {
-      if (error) return this.setState({ error, response, status });
+      if (error) {
+        if (onError) {
+          onError(error);
+        }
+        return this.setState({ error, response, status });
+      }
       if (aborted) return this.setState({ aborted });
       if (onComplete) onComplete({ response, status });
       if (reset)
