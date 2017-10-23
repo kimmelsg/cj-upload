@@ -175,6 +175,7 @@ test('does nothing if no files are selected', async () => {
 
 test('returns error on bad request', async () => {
   let didFail;
+  const errorCb = jest.fn();
 
   const output = mount(
     <Uploader
@@ -183,6 +184,7 @@ test('returns error on bad request', async () => {
         method: 'POST',
       }}
       uploadOnSelection={true}
+      onError={errorCb}
     >
       {({ onFiles, startUpload, progress, complete, canceled, error }) => {
         if (error) didFail = true;
@@ -207,6 +209,7 @@ test('returns error on bad request', async () => {
   await sleep(15);
 
   expect(didFail).toEqual(true);
+  expect(errorCb).toHaveBeenCalled();
 });
 
 test('returns aborted on aborted request', async () => {

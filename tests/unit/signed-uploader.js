@@ -64,6 +64,8 @@ test('Triggers upload', async () => {
 test('Triggers error', async () => {
   let completedValue = false;
 
+  const errorCb = jest.fn();
+
   const output = mount(
     <Uploader
       beforeRequest={() => new Promise(resolve => resolve({ test: 'awesome' }))}
@@ -74,6 +76,7 @@ test('Triggers error', async () => {
         };
       }}
       uploadOnSelection={true}
+      onError={errorCb}
       afterRequest={({ before, status }) =>
         new Promise(resolve => {
           resolve('finished after');
@@ -103,6 +106,7 @@ test('Triggers error', async () => {
 
   await sleep(20);
 
+  expect(errorCb).toHaveBeenCalled();
   expect(completedValue).toEqual(true);
 });
 
@@ -154,6 +158,8 @@ test('Triggers abort', async () => {
 test('Triggers error before request', async () => {
   let completedValue = false;
 
+  const errorCb = jest.fn();
+
   const output = mount(
     <Uploader
       beforeRequest={() =>
@@ -165,6 +171,7 @@ test('Triggers error before request', async () => {
         };
       }}
       uploadOnSelection={true}
+      onError={errorCb}
       afterRequest={({ before, status }) =>
         new Promise(resolve => {
           resolve('finished after');
@@ -194,6 +201,7 @@ test('Triggers error before request', async () => {
 
   await sleep(20);
 
+  expect(errorCb).toHaveBeenCalled();
   expect(completedValue).toEqual({ error: 'awesome' });
 });
 
