@@ -30,6 +30,7 @@ export default class Uploader extends React.Component {
       request,
       afterRequest,
       onComplete,
+      onError,
       reset,
     } = this.props;
     if (!files || !files.length) return;
@@ -50,7 +51,12 @@ export default class Uploader extends React.Component {
         instance: xhr => this.xhr = xhr,
         progress: value => this.setState({ progress: value || 0.1 }),
       });
-      if (error) return this.setState({ error, response, status, before });
+      if (error) {
+        if (onError) {
+          onError(error);
+        }
+        return this.setState({ error, response, status, before });
+      }
       if (aborted) return this.setState({ aborted });
 
       let after = await afterRequest({ before, files, status });
@@ -66,6 +72,11 @@ export default class Uploader extends React.Component {
         });
       this.setState({ response, status, complete: true, before, after });
     } catch (error) {
+      if (error) {
+        if (onError) {
+          onError(error);
+        }
+      }
       this.setState({ error: error || true });
     }
   }
