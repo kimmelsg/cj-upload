@@ -3,7 +3,7 @@ import registerListeners from './register-listeners';
 export default ({ request, files, instance, progress }) =>
   new Promise(resolve => {
     const xhr = new XMLHttpRequest();
-    instance(xhr);
+    if (instance) instance(xhr);
 
     registerListeners({ xhr, resolve, progress });
 
