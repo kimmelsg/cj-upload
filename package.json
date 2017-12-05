@@ -1,6 +1,6 @@
 {
   "name": "@navjobs/upload",
-  "version": "3.0.11",
+  "version": "3.0.12",
   "description": "HOC that displays a file upload on clicking children",
   "main": "dist/index.js",
   "scripts": {
@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/navjobs/upload#readme",
   "peerDependencies": {
-    "react": "^15.3.1"
+    "react": ">=15.0 <= 16"
   },
   "devDependencies": {
     "@kadira/storybook": "^2.21.0",
