@@ -7,7 +7,13 @@ export default class UploadField extends React.Component {
   }
   render() {
     let { hover } = this.state;
-    let { children, uploadProps, containerProps, onFiles } = this.props;
+    let {
+      children,
+      uploadProps,
+      containerProps,
+      onFiles,
+      onChange,
+    } = this.props;
     let handleHover = typeof children === 'function';
 
     return (
@@ -22,8 +28,10 @@ export default class UploadField extends React.Component {
         <input
           type="file"
           style={styles.input}
-          onChange={e =>
-            e.target.files && onFiles ? onFiles(e.target.files) : null}
+          onChange={e => {
+            if (e.target.files && onFiles) onFiles(e.target.files);
+            if (onChange) onChange(e);
+          }}
           {...uploadProps}
         />
       </div>

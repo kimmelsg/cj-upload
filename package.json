@@ -1,6 +1,6 @@
 {
   "name": "@navjobs/upload",
-  "version": "3.1.2",
+  "version": "3.1.3",
   "description": "HOC that displays a file upload on clicking children",
   "main": "dist/index.js",
   "scripts": {
