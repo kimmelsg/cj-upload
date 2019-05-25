@@ -11,11 +11,21 @@ export default ({ xhr, progress, resolve }) => {
     } catch (e) {
       response = xhr.response;
     }
+    var headers = request.getAllResponseHeaders();
+    var arr = headers.trim().split(/[\r\n]+/);
+    var headerMap = {};
+    arr.forEach(function (line) {
+      var parts = line.split(': ');
+      var header = parts.shift();
+      var value = parts.join(': ');
+      headerMap[header] = value;
+    });
+    
     resolve({
       response,
       error: xhr.status < 200 || xhr.status >= 300,
       status: xhr.status,
-      xhrRequest: xhr
+      headers: headerMap
     });
   });
 
