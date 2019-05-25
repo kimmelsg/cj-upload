@@ -11,7 +11,7 @@ export default ({ xhr, progress, resolve }) => {
     } catch (e) {
       response = xhr.response;
     }
-    var headers = request.getAllResponseHeaders();
+    var headers = xhr.getAllResponseHeaders();
     var arr = headers.trim().split(/[\r\n]+/);
     var headerMap = {};
     arr.forEach(function (line) {
