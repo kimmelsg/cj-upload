@@ -61,5 +61,8 @@ const mock = values => ({
     setTimeout(() => progress({ loaded: 0.5, total: 1 }), 5);
     setTimeout(() => load(JSON.stringify({ finished: 'hell yes' })), 15);
   },
+  getAllResponseHeaders: () => {
+    return '';
+  },
   ...values,
 });

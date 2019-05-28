@@ -11,10 +11,25 @@ export default ({ xhr, progress, resolve }) => {
     } catch (e) {
       response = xhr.response;
     }
+
+    let headers = xhr
+      .getAllResponseHeaders()
+      .trim()
+      .split(/[\r\n]+/)
+      .map(line => line.split(': '))
+      .reduce(
+        (acc, [header, value]) => {
+          acc[header] = value;
+          return acc;
+        },
+        {}
+      );
+
     resolve({
       response,
       error: xhr.status < 200 || xhr.status >= 300,
       status: xhr.status,
+      headers,
     });
   });
 
