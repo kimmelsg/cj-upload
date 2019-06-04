@@ -1,3 +1,8 @@
+## Deprecated
+
+Please look at [react-use-upload](https://github.com/zackify/react-use-upload) for the same functionality, updated using React hooks.
+
+
 [![CircleCI](https://circleci.com/gh/navjobs/upload.svg?style=svg)](https://circleci.com/gh/navjobs/upload)
 [![Coverage Status](https://coveralls.io/repos/github/navjobs/upload/badge.svg?branch=master)](https://coveralls.io/github/navjobs/upload?branch=master)
 
